@@ -1,0 +1,311 @@
+# Import package
+library(quantmod)
+library(PerformanceAnalytics)
+library(zoo)
+library(ggplot2)
+library(readr)
+library(dplyr)
+library(magrittr)
+
+# 1. AAPL
+AAPL <- read.csv("Downloads/AAPL.csv")
+
+# Pemisahan Data Train dan Data Testing
+AAPL_Close<- AAPL$Close
+AAPL_Close_Train <- AAPL_Close[1:2516]
+AAPL_Close_Test <- AAPL_Close[2517:2767]
+summary(AAPL_Close_Test)
+
+stock_symbol <- "AAPL"
+start_date <- "2019-01-02"
+end_date <- "2019-12-30"
+
+# Get historical stock prices
+getSymbols(stock_symbol, from = start_date, to = end_date, src = 'yahoo')
+
+stock_prices <- Cl(get(stock_symbol))
+
+# Calculate daily returns
+returns <- dailyReturn(stock_prices)
+
+# Calculate summary statistics
+summary_stats <- summary(returns)
+
+# Print the summary statistics
+print(summary_stats)
+
+# Daily Return
+return_AAPL <- dailyReturn(Cl(get(stock_symbol)))
+print(return_AAPL)
+
+AAPL_Test <- Cl(AAPL)
+
+# Download risk-free rate data (e.g., 10-year US Treasury Yield)
+getSymbols("GS10", src = "FRED", from = start_date, to = end_date)
+risk_free_rate <- GS10 / 100 / 252  # Convert annual yield to daily rate
+print(risk_free_rate)
+
+# Calculate Sharpe Ratio
+sharpe_ratio <- SharpeRatio(returns, Rf = risk_free_rate, FUN = "StdDev")
+
+# Download market returns data
+getSymbols("^W5000", from = start_date, to = end_date)
+market_returns <- dailyReturn(Cl(W5000))
+willshire <- Cl(W5000)
+
+# Calculate Treynor Ratio
+treynor_ratio <- TreynorRatio(returns, Rf = risk_free_rate, Rb = market_returns)
+
+# Download benchmark returns data
+getSymbols("^GSPC", from = start_date, to = end_date)
+benchmark_returns <- dailyReturn(Cl(GSPC))
+
+# Calculate Information Ratio
+information_ratio <- InformationRatio(returns, benchmark_returns)
+
+# Print the results
+cat("Sharpe Ratio:", sharpe_ratio, "\n")
+cat("Treynor Ratio:", treynor_ratio, "\n")
+cat("Information Ratio:", information_ratio, "\n")
+
+
+
+# 2. CVX
+CVX <- read.csv("Downloads/CVX.csv")
+# Pemisahan Data Train dan Data Testing
+CVX_Close<- CVX$Close
+CVX_Close_Train <- CVX_Close[1:2516]
+CVX_Close_Test <- CVX_Close[2517:2767]
+summary(CVX_Close_Test)
+
+stock_symbol <- "CVX"
+start_date <- "2019-01-02"
+end_date <- "2019-12-30"
+
+# Get historical stock prices
+getSymbols(stock_symbol, from = start_date, to = end_date)
+
+stock_prices <- Cl(get(stock_symbol))
+
+# Calculate daily returns
+returns <- dailyReturn(stock_prices)
+
+# Calculate summary statistics
+summary_stats <- summary(returns)
+
+# Print the summary statistics
+print(summary_stats)
+# Daily Return
+return_CVX <- dailyReturn(Cl(get(stock_symbol)))
+print(return_CVX)
+
+CVX_Test <- Cl(CVX)
+print(CVX_Test)
+
+getSymbols("GS10", src = "FRED", from = start_date, to = end_date)
+risk_free_rate <- GS10 / 100 / 252  # Convert annual yield to daily rate
+print(risk_free_rate)
+
+# Calculate Sharpe Ratio
+sharpe_ratio <- SharpeRatio(returns, Rf = risk_free_rate, FUN = "StdDev")
+
+# Download market returns data
+getSymbols("^W5000", from = start_date, to = end_date)
+market_returns <- dailyReturn(Cl(W5000))
+
+# Calculate Treynor Ratio
+treynor_ratio <- TreynorRatio(returns, Rf = risk_free_rate, Rb = market_returns)
+
+# Download benchmark returns data
+getSymbols("^GSPC", from = start_date, to = end_date)
+benchmark_returns <- dailyReturn(Cl(GSPC))
+
+# Calculate Information Ratio
+information_ratio <- InformationRatio(returns, benchmark_returns)
+
+# Print the results
+cat("Sharpe Ratio:", sharpe_ratio, "\n")
+cat("Treynor Ratio:", treynor_ratio, "\n")
+cat("Information Ratio:", information_ratio, "\n")
+
+
+# 3. JPM
+JPM <- read.csv("Downloads/JPM.csv")
+# Pemisahan Data Train dan Data Testing
+JPM_Close<- JPM$Close
+JPM_Close_Train <- JPM_Close[1:2516]
+JPM_Close_Test <- JPM_Close[2517:2767]
+summary(JPM_Close_Test)
+
+stock_symbol <- "JPM"
+start_date <- "2019-01-02"
+end_date <- "2019-12-30"
+
+# Get historical stock prices
+getSymbols(stock_symbol, from = start_date, to = end_date)
+
+stock_prices <- Cl(get(stock_symbol))
+
+# Calculate daily returns
+returns <- dailyReturn(stock_prices)
+
+# Calculate summary statistics
+summary_stats <- summary(returns)
+
+# Print the summary statistics
+print(summary_stats)
+
+# Daily Return
+return_JPM <- dailyReturn(Cl(get(stock_symbol)))
+print(return_JPM)
+
+JPM_Test <- Cl(JPM)
+print(JPM_Test)
+
+# Download market returns data
+getSymbols("^W5000", from = start_date, to = end_date)
+market_returns <- dailyReturn(Cl(W5000))
+
+# Calculate Treynor Ratio
+treynor_ratio <- TreynorRatio(returns, Rf = risk_free_rate, Rb = market_returns)
+
+# Download benchmark returns data
+getSymbols("^GSPC", from = start_date, to = end_date)
+benchmark_returns <- dailyReturn(Cl(GSPC))
+
+# Calculate Information Ratio
+information_ratio <- InformationRatio(returns, benchmark_returns)
+
+# Print the results
+cat("Sharpe Ratio:", sharpe_ratio, "\n")
+cat("Treynor Ratio:", treynor_ratio, "\n")
+cat("Information Ratio:", information_ratio, "\n")
+
+# 4. KO
+KO <- read.csv("Downloads/KO.csv")
+# Pemisahan Data Train dan Data Testing
+KO_Close<- KO$Close
+KO_Close_Train <- KO_Close[1:2516]
+KO_Close_Test <- KO_Close[2517:2767]
+summary(KO_Close_Test)
+
+stock_symbol <- "KO"
+start_date <- "2019-01-02"
+end_date <- "2019-12-30"
+
+# Get historical stock prices
+getSymbols(stock_symbol, from = start_date, to = end_date)
+
+stock_prices <- Cl(get(stock_symbol))
+
+# Calculate daily returns
+returns <- dailyReturn(stock_prices)
+
+# Calculate summary statistics
+summary_stats <- summary(returns)
+
+# Print the summary statistics
+print(summary_stats)
+
+# Daily Return
+return_KO <- dailyReturn(Cl(get(stock_symbol)))
+print(return_KO)
+
+KO_Test <- Cl(KO)
+print(KO_Test)
+
+# Download market returns data
+getSymbols("^W5000", from = start_date, to = end_date)
+market_returns <- dailyReturn(Cl(W5000))
+
+# Calculate Treynor Ratio
+treynor_ratio <- TreynorRatio(returns, Rf = risk_free_rate, Rb = market_returns)
+
+# Download benchmark returns data
+getSymbols("^GSPC", from = start_date, to = end_date)
+benchmark_returns <- dailyReturn(Cl(GSPC))
+
+# Calculate Information Ratio
+information_ratio <- InformationRatio(returns, benchmark_returns)
+
+# Print the results
+cat("Sharpe Ratio:", sharpe_ratio, "\n")
+cat("Treynor Ratio:", treynor_ratio, "\n")
+cat("Information Ratio:", information_ratio, "\n")
+
+# 5. VRTX
+VRTX <- read.csv("Downloads/VRTX.csv")
+
+# Pemisahan Data Train dan Data Testing
+VRTX_Close<- VRTX$Close
+VRTX_Close_Train <- VRTX_Close[1:2516]
+VRTX_Close_Test <- VRTX_Close[2517:2767]
+summary(VRTX_Close_Test)
+
+stock_symbol <- "VRTX"
+start_date <- "2019-01-02"
+end_date <- "2019-12-30"
+
+# Get historical stock prices
+getSymbols(stock_symbol, from = start_date, to = end_date)
+
+stock_prices <- Cl(get(stock_symbol))
+
+# Calculate daily returns
+returns <- dailyReturn(stock_prices)
+
+# Calculate summary statistics
+summary_stats <- summary(returns)
+
+# Print the summary statistics
+print(summary_stats)
+
+# Daily Return
+return_VRTX <- dailyReturn(Cl(get(stock_symbol)))
+print(return_VRTX)
+
+VRTX_Test <- Cl(VRTX)
+print(VRTX_Test)
+
+# Download risk-free rate data (e.g., 10-year US Treasury Yield)
+getSymbols("GS10", src = "FRED", from = start_date, to = end_date)
+risk_free_rate <- GS10 / 100 / 252  # Convert annual yield to daily rate
+print(risk_free_rate)
+
+# Calculate Sharpe Ratio
+sharpe_ratio <- SharpeRatio(returns, Rf = risk_free_rate, FUN = "StdDev")
+print(sharpe_ratio)
+
+# Download market returns data
+getSymbols("^W5000", from = start_date, to = end_date)
+market_returns <- dailyReturn(Cl(W5000))
+
+# Calculate Treynor Ratio
+treynor_ratio <- TreynorRatio(returns, Rf = risk_free_rate, Rb = market_returns)
+
+# Download benchmark returns data
+getSymbols("^GSPC", from = start_date, to = end_date)
+benchmark_returns <- dailyReturn(Cl(GSPC))
+
+# Calculate Information Ratio
+information_ratio <- InformationRatio(returns, benchmark_returns)
+
+# Print the results
+cat("Sharpe Ratio:", sharpe_ratio, "\n")
+cat("Treynor Ratio:", treynor_ratio, "\n")
+cat("Information Ratio:", information_ratio, "\n")
+
+
+# Merge the data frames based on the 'Date' column
+data_combined <- merge(AAPL_Test, CVX_Test,JPM_Test, KO_Test, VRTX_Test  , by = "Date", all = TRUE)
+# Model CAPM
+lm_model <- lm(return_AAPL ~ market_returns, data = data_combined)
+summary(lm_model)
+lm_model <- lm(return_CVX ~ market_returns, data = data_combined)
+summary(lm_model)
+lm_model <- lm(return_JPM ~ market_returns, data = data_combined)
+summary(lm_model)
+lm_model <- lm(return_KO ~ market_returns, data = data_combined)
+summary(lm_model)
+lm_model <- lm(return_VRTX ~ market_returns, data = data_combined)
+summary(lm_model)
