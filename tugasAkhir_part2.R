@@ -569,3 +569,45 @@ cat("Sharpe Ratio:", test_jpm_yearly_sharpe_ratio, "\n")
 cat("Treynor Ratio:", test_jpm_yearly_treynor_ratio, "\n")
 cat("Information Ratio:", test_jpm_yearly_information_ratio, "\n")
 
+
+
+
+## ===============================ANALISIS KESELURUHAN======================================== ##
+# train
+# Merge the data of 5 stocks : price
+train_data_prices <- merge(train_market_prices, train_aapl_prices, train_ko_prices, train_cvx_prices, train_vrtx_prices, train_jpm_prices, all = TRUE)
+print(summary(train_data_prices))
+
+# Merge the data of 5 stocks: daily return
+train_data_daily_returns <- merge(na.omit(train_market_daily_returns), train_aapl_daily_returns, train_ko_daily_returns, train_cvx_daily_returns,
+                            train_vrtx_daily_returns, train_jpm_daily_returns, all=TRUE)
+colnames(train_data_daily_returns) <- c( "return index", "return AAPL", "return KO", "return CVX", "return VRTX", "return JPM")
+print(summary(train_data_daily_returns))
+
+# Merge the data of 5 stocks: yearly return
+train_data_yearly_returns <- merge(na.omit(train_market_yearly_returns), train_aapl_yearly_returns, train_ko_yearly_returns, train_cvx_yearly_returns,
+                                   train_vrtx_yearly_returns, train_jpm_yearly_returns, all=TRUE)
+colnames(train_data_yearly_returns) <- c( "return index", "return AAPL", "return KO", "return CVX", "return VRTX", "return JPM")
+print(summary(train_data_yearly_returns))
+
+
+# test
+# Merge the data of 5 stocks : price
+test_data_prices <- merge(test_market_prices, test_aapl_prices, test_ko_prices, test_cvx_prices, test_vrtx_prices, test_jpm_prices, all = TRUE)
+print(summary(test_data_prices))
+
+# Merge the data of 5 stocks: daily return
+test_data_daily_returns <- merge(na.omit(test_market_daily_returns), test_aapl_daily_returns, test_ko_daily_returns, test_cvx_daily_returns,
+                                 test_vrtx_daily_returns, test_jpm_daily_returns, all=TRUE)
+colnames(test_data_daily_returns) <- c( "return index", "return AAPL", "return KO", "return CVX", "return VRTX", "return JPM")
+print(summary(test_data_daily_returns))
+
+# Merge the data of 5 stocks: yearly return
+test_data_yearly_returns <- merge(na.omit(test_market_yearly_returns), test_aapl_yearly_returns, test_ko_yearly_returns, test_cvx_yearly_returns,
+                                  test_vrtx_yearly_returns, test_jpm_yearly_returns, all=TRUE)
+colnames(test_data_yearly_returns) <- c( "return index", "return AAPL", "return KO", "return CVX", "return VRTX", "return JPM")
+print(summary(test_data_yearly_returns))
+
+
+
+

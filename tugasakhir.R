@@ -57,48 +57,22 @@ names(data_test)[c(1, 2, 3, 4, 5, 6, 7)] <- c("date", "wilshire_price", "apple_p
 
 summary(data_test)
 
-# Data Visualization
-## Index
-### train
-ggplot(data_train, aes(x=date)) + geom_line(aes(y=wilshire_price), color='blue') +
-  labs(title = "Wilshire 5000 Index Price 2009-2018", x="Date", y="Price") + theme_minimal() +
-  theme(plot.title = element_text(hjust=0.5))
-### test
-ggplot(data_test, aes(x=date)) + geom_line(aes(y=wilshire_price), color='blue') +
-  labs(title = "Wilshire 5000 Index Price 2019", x="Date", y="Price") + theme_minimal() +
-  theme(plot.title = element_text(hjust=0.5))
-
-## 5 Saham
-
-### train
-#### AAPL
-ggplot(data_train, aes(x=date)) + geom_line(aes(y=apple_price), color="blue") + labs(title = "Apple Stocks Price 2009-2018", x="Date", y="Price") +
-  theme_minimal() + theme(plot.title = element_text(hjust=0.5))
-#### KO
-ggplot(data_train, aes(x=date)) + geom_line(aes(y=coca_cola_price), color="blue") + labs(title = "Coca Cola Stocks Price 2009-2018", x="Date", y="Price") +
-  theme_minimal() + theme(plot.title = element_text(hjust=0.5))
-#### CVX
-ggplot(data_train, aes(x=date)) + geom_line(aes(y=chevron_price), color="blue") + labs(title = "Chevron Stocks Price 2009-2018", x="Date", y="Price") +
-  theme_minimal() + theme(plot.title = element_text(hjust=0.5))
-#### VRTX
-ggplot(data_train, aes(x=date)) + geom_line(aes(y=vertex_price), color="blue") + labs(title = "Vertex Pharmaceuticals Stocks Price 2009-2018", x="Date", y="Price") +
-  theme_minimal() + theme(plot.title = element_text(hjust=0.5))
-#### JPM
-ggplot(data_train, aes(x=date)) + geom_line(aes(y=jp_morgan_price ), color="blue") + labs(title = "JP Morgan Stocks Price 2009-2018", x="Date", y="Price") +
-  theme_minimal() + theme(plot.title = element_text(hjust=0.5))
-
-
-
-### Test
-ggplot(data_test, aes(x=date)) + geom_line(aes(y=apple_price, color="APPL")) + geom_line(aes(y=chevron_price, color="CVX")) + 
-  geom_line(aes(y=jp_morgan_price , color="JPM")) + geom_line(aes(y=coca_cola_price, color='KO')) +
-  geom_line(aes(y=vertex_price, color='VRTX')) + labs(title = "5 Wilshire 5000 Stocks Price 2019", x="Date", y="Price") +
-  theme_minimal() + theme(plot.title = element_text(hjust=0.5))
-
-
 ## ========================================================== ##
 
-
+## Nanti diganti
+# Merge the data frames based on the 'Date' column
+data_combined <- merge(SMCI_Test, SAIA_Test,IRDM_Test, EME_Test, TXRH_Test  , by = "Date", all = TRUE)
+# Model CAPM
+lm_model <- lm(return_SMCI ~ market_returns, data = data_combined)
+summary(lm_model)
+lm_model <- lm(return_SAIA ~ market_returns, data = data_combined)
+summary(lm_model)
+lm_model <- lm(return_IRDM ~ market_returns, data = data_combined)
+summary(lm_model)
+lm_model <- lm(return_EME ~ market_returns, data = data_combined)
+summary(lm_model)
+lm_model <- lm(return_TXRH ~ market_returns, data = data_combined)
+summary(lm_model)
 
 
 
