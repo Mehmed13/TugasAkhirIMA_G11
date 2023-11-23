@@ -1,27 +1,27 @@
 {
-    "id": "BC928FCC",
-    "path": "D:/KULIAH/SEMESTER 5/IMA/Tugas Akhir/tugasAkhir_part2.R",
-    "project_path": "tugasAkhir_part2.R",
+    "id": "C226E1FC",
+    "path": null,
+    "project_path": null,
     "type": "r_source",
     "hash": "0",
     "contents": "",
     "dirty": true,
-    "created": 1700715457127.0,
+    "created": 1700728654507.0,
     "source_on_save": false,
-    "relative_order": 2,
+    "relative_order": 3,
     "properties": {
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "71,0",
-        "scrollLine": "69"
+        "cursorPosition": "45,67",
+        "scrollLine": "8"
     },
     "folds": "",
     "lastKnownWriteTime": 1700727012,
-    "encoding": "UTF-8",
+    "encoding": "",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1700728787313,
+    "last_content_update": 1700728762669,
     "read_only": false,
     "read_only_alternatives": []
 }
