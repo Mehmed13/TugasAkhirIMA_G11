@@ -68,6 +68,7 @@ autoplot(test_market_daily_returns, colour="blue") +
   theme(plot.title = element_text(hjust=0.5))
 
 
+
 # 1. AAPL
 ## train
 ### Load Data
@@ -96,7 +97,7 @@ autoplot(train_aapl_yearly_returns, colour="blue") +
   labs(title = "AAPL Yearly Returns 2009 - 2018", x="Date", y="Return") + theme_minimal() +
   theme(plot.title = element_text(hjust=0.5))
 
-### Another Analysis
+### Additional Analysis
 #### Sharpe Ratio
 train_aapl_daily_sharpe_ratio <- SharpeRatio(train_aapl_daily_returns, Rf = daily_risk_free_rate, FUN = "StdDev")
 train_aapl_yearly_sharpe_ratio <- SharpeRatio(train_aapl_yearly_returns, Rf = yearly_risk_free_rate, FUN = "StdDev")
@@ -107,5 +108,64 @@ train_aapl_yearly_treynor_ratio <- TreynorRatio(train_aapl_yearly_returns, Rf = 
 
 #### Information Ratio
 train_aapl_daily_information_ratio <- InformationRatio(train_aapl_daily_returns, train_market_daily_returns)
-train_aapl_yearly_informatio_ratio <- InfromationRatio()
+train_aapl_yearly_information_ratio <- InformationRatio(train_aapl_yearly_returns, train_market_yearly_returns)
+
+### Print the Additional Analysis results
+print("AAPL Daily Data 2009 - 2018")
+cat("Sharpe Ratio:", train_aapl_daily_sharpe_ratio, "\n")
+cat("Treynor Ratio:", train_aapl_daily_treynor_ratio, "\n")
+cat("Information Ratio:", train_aapl_daily_information_ratio, "\n")
+
+print("AAPL Yearly Data 2009 - 2018")
+cat("Sharpe Ratio:", train_aapl_yearly_sharpe_ratio, "\n")
+cat("Treynor Ratio:", train_aapl_yearly_treynor_ratio, "\n")
+cat("Information Ratio:", train_aapl_yearly_information_ratio, "\n")
+
+
+## test
+### Load Data
+getSymbols("AAPL", from = test_start_date, to = test_end_date)
+test_aapl_prices <- Cl(get("AAPL"))
+test_aapl_daily_returns <- dailyReturn(test_aapl_prices)
+colnames(test_aapl_daily_returns) <- "return"
+test_aapl_yearly_returns <- period.apply(test_aapl_daily_returns, endpoints(test_aapl_daily_returns, on = "years"), 
+                                         function(x) prod(1 + x) - 1)
+
+### Print Statistic Data
+print(summary(test_aapl_daily_returns))
+print(test_aapl_yearly_returns)
+
+### Plot Data
+autoplot(test_aapl_prices, colour="blue") + 
+  labs(title = "AAPL Price 2019", x="Date", y="Price") + theme_minimal() +
+  theme(plot.title = element_text(hjust=0.5))
+
+autoplot(test_aapl_daily_returns, colour="blue") + 
+  labs(title = "AAPL Daily Returns 2019", x="Date", y="Return") + theme_minimal() +
+  theme(plot.title = element_text(hjust=0.5))
+
+
+### Additional Analysis
+#### Sharpe Ratio
+test_aapl_daily_sharpe_ratio <- SharpeRatio(test_aapl_daily_returns, Rf = daily_risk_free_rate, FUN = "StdDev")
+test_aapl_yearly_sharpe_ratio <- SharpeRatio(test_aapl_yearly_returns, Rf = yearly_risk_free_rate, FUN = "StdDev")
+
+#### Treynor Ratio
+test_aapl_daily_treynor_ratio <- TreynorRatio(test_aapl_daily_returns, Rf = daily_risk_free_rate, Rb = test_market_daily_returns)
+test_aapl_yearly_treynor_ratio <- TreynorRatio(test_aapl_yearly_returns, Rf = yearly_risk_free_rate, Rb = test_market_yearly_returns)
+
+#### Information Ratio
+test_aapl_daily_information_ratio <- InformationRatio(test_aapl_daily_returns, test_market_daily_returns)
+test_aapl_yearly_information_ratio <- InformationRatio(test_aapl_yearly_returns, test_market_yearly_returns)
+
+### Print the Additional Analysis results
+print("AAPL Daily Data 2019")
+cat("Sharpe Ratio:", test_aapl_daily_sharpe_ratio, "\n")
+cat("Treynor Ratio:", test_aapl_daily_treynor_ratio, "\n")
+cat("Information Ratio:", test_aapl_daily_information_ratio, "\n")
+
+print("AAPL Yearly Data 2019")
+cat("Sharpe Ratio:", test_aapl_yearly_sharpe_ratio, "\n")
+cat("Treynor Ratio:", test_aapl_yearly_treynor_ratio, "\n")
+cat("Information Ratio:", test_aapl_yearly_information_ratio, "\n")
 
