@@ -1,6 +1,6 @@
 # Tugas Akhir IMA : G11
-> Repository ini berisi kode analisis 5 saham pada indeks Wilshire 5000
-> Berikut kelima saham tersebut
+> Repository ini berisi kode analisis 5 saham pada indeks Wilshire 5000 <br>
+Berikut kelima saham tersebut.
 > 1. Apple Inc. (AAPL)
 > 2. Coca-Cola Company (KO)
 > 3. Chevron Company (CVX)
