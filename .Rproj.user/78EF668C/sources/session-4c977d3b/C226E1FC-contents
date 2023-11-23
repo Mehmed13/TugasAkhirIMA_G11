@@ -1,99 +1,99 @@
-# 1. VRTX
+# 1. JPM
 ## train
 ### Load Data
-getSymbols("VRTX", from = train_start_date, to = train_end_date)
-train_vrtx_prices <- Cl(get("VRTX"))
-train_vrtx_daily_returns <- dailyReturn(train_vrtx_prices)
-colnames(train_vrtx_daily_returns) <- "return"
-train_vrtx_yearly_returns <- period.apply(train_vrtx_daily_returns, endpoints(train_vrtx_daily_returns, on = "years"), 
+getSymbols("JPM", from = train_start_date, to = train_end_date)
+train_jpm_prices <- Cl(get("JPM"))
+train_jpm_daily_returns <- dailyReturn(train_jpm_prices)
+colnames(train_jpm_daily_returns) <- "return"
+train_jpm_yearly_returns <- period.apply(train_jpm_daily_returns, endpoints(train_jpm_daily_returns, on = "years"), 
                                           function(x) prod(1 + x) - 1)
 
 ### Print Statistic Data
-print(summary(train_vrtx_daily_returns))
-print(train_vrtx_yearly_returns)
-print(summary(train_vrtx_yearly_returns))
+print(summary(train_jpm_daily_returns))
+print(train_jpm_yearly_returns)
+print(summary(train_jpm_yearly_returns))
 
 ### Plot Data
-autoplot(train_vrtx_prices, colour="blue") + 
-  labs(title = "VRTX Price 2009 - 2018", x="Date", y="Price") + theme_minimal() +
+autoplot(train_jpm_prices, colour="blue") + 
+  labs(title = "JPM Price 2009 - 2018", x="Date", y="Price") + theme_minimal() +
   theme(plot.title = element_text(hjust=0.5))
 
-autoplot(train_vrtx_daily_returns, colour="blue") + 
-  labs(title = "VRTX Daily Returns 2009 - 2018", x="Date", y="Return") + theme_minimal() +
+autoplot(train_jpm_daily_returns, colour="blue") + 
+  labs(title = "JPM Daily Returns 2009 - 2018", x="Date", y="Return") + theme_minimal() +
   theme(plot.title = element_text(hjust=0.5))
 
-autoplot(train_vrtx_yearly_returns, colour="blue") + 
-  labs(title = "VRTX Yearly Returns 2009 - 2018", x="Date", y="Return") + theme_minimal() +
+autoplot(train_jpm_yearly_returns, colour="blue") + 
+  labs(title = "JPM Yearly Returns 2009 - 2018", x="Date", y="Return") + theme_minimal() +
   theme(plot.title = element_text(hjust=0.5))
 
 ### Additional Analysis
 #### Sharpe Ratio
-train_vrtx_daily_sharpe_ratio <- SharpeRatio(train_vrtx_daily_returns, Rf = daily_risk_free_rate, FUN = "StdDev")
-train_vrtx_yearly_sharpe_ratio <- SharpeRatio(train_vrtx_yearly_returns, Rf = yearly_risk_free_rate, FUN = "StdDev")
+train_jpm_daily_sharpe_ratio <- SharpeRatio(train_jpm_daily_returns, Rf = daily_risk_free_rate, FUN = "StdDev")
+train_jpm_yearly_sharpe_ratio <- SharpeRatio(train_jpm_yearly_returns, Rf = yearly_risk_free_rate, FUN = "StdDev")
 
 #### Treynor Ratio
-train_vrtx_daily_treynor_ratio <- TreynorRatio(train_vrtx_daily_returns, Rf = daily_risk_free_rate, Rb = train_market_daily_returns)
-train_vrtx_yearly_treynor_ratio <- TreynorRatio(train_vrtx_yearly_returns, Rf = yearly_risk_free_rate, Rb = train_market_yearly_returns)
+train_jpm_daily_treynor_ratio <- TreynorRatio(train_jpm_daily_returns, Rf = daily_risk_free_rate, Rb = train_market_daily_returns)
+train_jpm_yearly_treynor_ratio <- TreynorRatio(train_jpm_yearly_returns, Rf = yearly_risk_free_rate, Rb = train_market_yearly_returns)
 
 #### Information Ratio
-train_vrtx_daily_information_ratio <- InformationRatio(train_vrtx_daily_returns, train_market_daily_returns)
-train_vrtx_yearly_information_ratio <- InformationRatio(train_vrtx_yearly_returns, train_market_yearly_returns)
+train_jpm_daily_information_ratio <- InformationRatio(train_jpm_daily_returns, train_market_daily_returns)
+train_jpm_yearly_information_ratio <- InformationRatio(train_jpm_yearly_returns, train_market_yearly_returns)
 
 ### Print the Additional Analysis results
-print("VRTX Daily Data 2009 - 2018")
-cat("Sharpe Ratio:", train_vrtx_daily_sharpe_ratio, "\n")
-cat("Treynor Ratio:", train_vrtx_daily_treynor_ratio, "\n")
-cat("Information Ratio:", train_vrtx_daily_information_ratio, "\n")
+print("JPM Daily Data 2009 - 2018")
+cat("Sharpe Ratio:", train_jpm_daily_sharpe_ratio, "\n")
+cat("Treynor Ratio:", train_jpm_daily_treynor_ratio, "\n")
+cat("Information Ratio:", train_jpm_daily_information_ratio, "\n")
 
-print("VRTX Yearly Data 2009 - 2018")
-cat("Sharpe Ratio:", train_vrtx_yearly_sharpe_ratio, "\n")
-cat("Treynor Ratio:", train_vrtx_yearly_treynor_ratio, "\n")
-cat("Information Ratio:", train_vrtx_yearly_information_ratio, "\n")
+print("JPM Yearly Data 2009 - 2018")
+cat("Sharpe Ratio:", train_jpm_yearly_sharpe_ratio, "\n")
+cat("Treynor Ratio:", train_jpm_yearly_treynor_ratio, "\n")
+cat("Information Ratio:", train_jpm_yearly_information_ratio, "\n")
 
 
 ## test
 ### Load Data
-getSymbols("VRTX", from = test_start_date, to = test_end_date)
-test_vrtx_prices <- Cl(get("VRTX"))
-test_vrtx_daily_returns <- dailyReturn(test_vrtx_prices)
-colnames(test_vrtx_daily_returns) <- "return"
-test_vrtx_yearly_returns <- period.apply(test_vrtx_daily_returns, endpoints(test_vrtx_daily_returns, on = "years"), 
+getSymbols("JPM", from = test_start_date, to = test_end_date)
+test_jpm_prices <- Cl(get("JPM"))
+test_jpm_daily_returns <- dailyReturn(test_jpm_prices)
+colnames(test_jpm_daily_returns) <- "return"
+test_jpm_yearly_returns <- period.apply(test_jpm_daily_returns, endpoints(test_jpm_daily_returns, on = "years"), 
                                          function(x) prod(1 + x) - 1)
 
 ### Print Statistic Data
-print(summary(test_vrtx_daily_returns))
-print(test_vrtx_yearly_returns)
+print(summary(test_jpm_daily_returns))
+print(test_jpm_yearly_returns)
 
 ### Plot Data
-autoplot(test_vrtx_prices, colour="blue") + 
-  labs(title = "VRTX Price 2019", x="Date", y="Price") + theme_minimal() +
+autoplot(test_jpm_prices, colour="blue") + 
+  labs(title = "JPM Price 2019", x="Date", y="Price") + theme_minimal() +
   theme(plot.title = element_text(hjust=0.5))
 
-autoplot(test_vrtx_daily_returns, colour="blue") + 
-  labs(title = "VRTX Daily Returns 2019", x="Date", y="Return") + theme_minimal() +
+autoplot(test_jpm_daily_returns, colour="blue") + 
+  labs(title = "JPM Daily Returns 2019", x="Date", y="Return") + theme_minimal() +
   theme(plot.title = element_text(hjust=0.5))
 
 
 ### Additional Analysis
 #### Sharpe Ratio
-test_vrtx_daily_sharpe_ratio <- SharpeRatio(test_vrtx_daily_returns, Rf = daily_risk_free_rate, FUN = "StdDev")
-test_vrtx_yearly_sharpe_ratio <- SharpeRatio(test_vrtx_yearly_returns, Rf = yearly_risk_free_rate, FUN = "StdDev")
+test_jpm_daily_sharpe_ratio <- SharpeRatio(test_jpm_daily_returns, Rf = daily_risk_free_rate, FUN = "StdDev")
+test_jpm_yearly_sharpe_ratio <- SharpeRatio(test_jpm_yearly_returns, Rf = yearly_risk_free_rate, FUN = "StdDev")
 
 #### Treynor Ratio
-test_vrtx_daily_treynor_ratio <- TreynorRatio(test_vrtx_daily_returns, Rf = daily_risk_free_rate, Rb = test_market_daily_returns)
-test_vrtx_yearly_treynor_ratio <- TreynorRatio(test_vrtx_yearly_returns, Rf = yearly_risk_free_rate, Rb = test_market_yearly_returns)
+test_jpm_daily_treynor_ratio <- TreynorRatio(test_jpm_daily_returns, Rf = daily_risk_free_rate, Rb = test_market_daily_returns)
+test_jpm_yearly_treynor_ratio <- TreynorRatio(test_jpm_yearly_returns, Rf = yearly_risk_free_rate, Rb = test_market_yearly_returns)
 
 #### Information Ratio
-test_vrtx_daily_information_ratio <- InformationRatio(test_vrtx_daily_returns, test_market_daily_returns)
-test_vrtx_yearly_information_ratio <- InformationRatio(test_vrtx_yearly_returns, test_market_yearly_returns)
+test_jpm_daily_information_ratio <- InformationRatio(test_jpm_daily_returns, test_market_daily_returns)
+test_jpm_yearly_information_ratio <- InformationRatio(test_jpm_yearly_returns, test_market_yearly_returns)
 
 ### Print the Additional Analysis results
-print("VRTX Daily Data 2019")
-cat("Sharpe Ratio:", test_vrtx_daily_sharpe_ratio, "\n")
-cat("Treynor Ratio:", test_vrtx_daily_treynor_ratio, "\n")
-cat("Information Ratio:", test_vrtx_daily_information_ratio, "\n")
+print("JPM Daily Data 2019")
+cat("Sharpe Ratio:", test_jpm_daily_sharpe_ratio, "\n")
+cat("Treynor Ratio:", test_jpm_daily_treynor_ratio, "\n")
+cat("Information Ratio:", test_jpm_daily_information_ratio, "\n")
 
-print("VRTX Yearly Data 2019")
-cat("Sharpe Ratio:", test_vrtx_yearly_sharpe_ratio, "\n")
-cat("Treynor Ratio:", test_vrtx_yearly_treynor_ratio, "\n")
-cat("Information Ratio:", test_vrtx_yearly_information_ratio, "\n")
+print("JPM Yearly Data 2019")
+cat("Sharpe Ratio:", test_jpm_yearly_sharpe_ratio, "\n")
+cat("Treynor Ratio:", test_jpm_yearly_treynor_ratio, "\n")
+cat("Information Ratio:", test_jpm_yearly_information_ratio, "\n")
