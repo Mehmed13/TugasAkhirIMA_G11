@@ -269,3 +269,103 @@ cat("Sharpe Ratio:", test_ko_yearly_sharpe_ratio, "\n")
 cat("Treynor Ratio:", test_ko_yearly_treynor_ratio, "\n")
 cat("Information Ratio:", test_ko_yearly_information_ratio, "\n")
 
+# 3. CVX
+## train
+### Load Data
+getSymbols("CVX", from = train_start_date, to = train_end_date)
+train_cvx_prices <- Cl(get("CVX"))
+train_cvx_daily_returns <- dailyReturn(train_cvx_prices)
+colnames(train_cvx_daily_returns) <- "return"
+train_cvx_yearly_returns <- period.apply(train_cvx_daily_returns, endpoints(train_cvx_daily_returns, on = "years"), 
+                                         function(x) prod(1 + x) - 1)
+
+### Print Statistic Data
+print(summary(train_cvx_daily_returns))
+print(train_cvx_yearly_returns)
+print(summary(train_cvx_yearly_returns))
+
+### Plot Data
+autoplot(train_cvx_prices, colour="blue") + 
+  labs(title = "CVX Price 2009 - 2018", x="Date", y="Price") + theme_minimal() +
+  theme(plot.title = element_text(hjust=0.5))
+
+autoplot(train_cvx_daily_returns, colour="blue") + 
+  labs(title = "CVX Daily Returns 2009 - 2018", x="Date", y="Return") + theme_minimal() +
+  theme(plot.title = element_text(hjust=0.5))
+
+autoplot(train_cvx_yearly_returns, colour="blue") + 
+  labs(title = "CVX Yearly Returns 2009 - 2018", x="Date", y="Return") + theme_minimal() +
+  theme(plot.title = element_text(hjust=0.5))
+
+### Additional Analysis
+#### Sharpe Ratio
+train_cvx_daily_sharpe_ratio <- SharpeRatio(train_cvx_daily_returns, Rf = daily_risk_free_rate, FUN = "StdDev")
+train_cvx_yearly_sharpe_ratio <- SharpeRatio(train_cvx_yearly_returns, Rf = yearly_risk_free_rate, FUN = "StdDev")
+
+#### Treynor Ratio
+train_cvx_daily_treynor_ratio <- TreynorRatio(train_cvx_daily_returns, Rf = daily_risk_free_rate, Rb = train_market_daily_returns)
+train_cvx_yearly_treynor_ratio <- TreynorRatio(train_cvx_yearly_returns, Rf = yearly_risk_free_rate, Rb = train_market_yearly_returns)
+
+#### Information Ratio
+train_cvx_daily_information_ratio <- InformationRatio(train_cvx_daily_returns, train_market_daily_returns)
+train_cvx_yearly_information_ratio <- InformationRatio(train_cvx_yearly_returns, train_market_yearly_returns)
+
+### Print the Additional Analysis results
+print("CVX Daily Data 2009 - 2018")
+cat("Sharpe Ratio:", train_cvx_daily_sharpe_ratio, "\n")
+cat("Treynor Ratio:", train_cvx_daily_treynor_ratio, "\n")
+cat("Information Ratio:", train_cvx_daily_information_ratio, "\n")
+
+print("CVX Yearly Data 2009 - 2018")
+cat("Sharpe Ratio:", train_cvx_yearly_sharpe_ratio, "\n")
+cat("Treynor Ratio:", train_cvx_yearly_treynor_ratio, "\n")
+cat("Information Ratio:", train_cvx_yearly_information_ratio, "\n")
+
+
+## test
+### Load Data
+getSymbols("CVX", from = test_start_date, to = test_end_date)
+test_cvx_prices <- Cl(get("CVX"))
+test_cvx_daily_returns <- dailyReturn(test_cvx_prices)
+colnames(test_cvx_daily_returns) <- "return"
+test_cvx_yearly_returns <- period.apply(test_cvx_daily_returns, endpoints(test_cvx_daily_returns, on = "years"), 
+                                        function(x) prod(1 + x) - 1)
+
+### Print Statistic Data
+print(summary(test_cvx_daily_returns))
+print(test_cvx_yearly_returns)
+
+### Plot Data
+autoplot(test_cvx_prices, colour="blue") + 
+  labs(title = "CVX Price 2019", x="Date", y="Price") + theme_minimal() +
+  theme(plot.title = element_text(hjust=0.5))
+
+autoplot(test_cvx_daily_returns, colour="blue") + 
+  labs(title = "CVX Daily Returns 2019", x="Date", y="Return") + theme_minimal() +
+  theme(plot.title = element_text(hjust=0.5))
+
+
+### Additional Analysis
+#### Sharpe Ratio
+test_cvx_daily_sharpe_ratio <- SharpeRatio(test_cvx_daily_returns, Rf = daily_risk_free_rate, FUN = "StdDev")
+test_cvx_yearly_sharpe_ratio <- SharpeRatio(test_cvx_yearly_returns, Rf = yearly_risk_free_rate, FUN = "StdDev")
+
+#### Treynor Ratio
+test_cvx_daily_treynor_ratio <- TreynorRatio(test_cvx_daily_returns, Rf = daily_risk_free_rate, Rb = test_market_daily_returns)
+test_cvx_yearly_treynor_ratio <- TreynorRatio(test_cvx_yearly_returns, Rf = yearly_risk_free_rate, Rb = test_market_yearly_returns)
+
+#### Information Ratio
+test_cvx_daily_information_ratio <- InformationRatio(test_cvx_daily_returns, test_market_daily_returns)
+test_cvx_yearly_information_ratio <- InformationRatio(test_cvx_yearly_returns, test_market_yearly_returns)
+
+### Print the Additional Analysis results
+print("CVX Daily Data 2019")
+cat("Sharpe Ratio:", test_cvx_daily_sharpe_ratio, "\n")
+cat("Treynor Ratio:", test_cvx_daily_treynor_ratio, "\n")
+cat("Information Ratio:", test_cvx_daily_information_ratio, "\n")
+
+print("CVX Yearly Data 2019")
+cat("Sharpe Ratio:", test_cvx_yearly_sharpe_ratio, "\n")
+cat("Treynor Ratio:", test_cvx_yearly_treynor_ratio, "\n")
+cat("Information Ratio:", test_cvx_yearly_information_ratio, "\n")
+
