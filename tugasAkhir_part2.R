@@ -69,205 +69,205 @@ autoplot(test_market_daily_returns, colour="blue") +
 
 
 
-# 1. AAPL
+# 1. T
 ## train
 ### Load Data
-getSymbols("AAPL", from = train_start_date, to = train_end_date)
-train_aapl_prices <- Cl(get("AAPL"))
-train_aapl_daily_returns <- dailyReturn(train_aapl_prices)
-colnames(train_aapl_daily_returns) <- "return"
-train_aapl_yearly_returns <- period.apply(train_aapl_daily_returns, endpoints(train_aapl_daily_returns, on = "years"), 
+getSymbols("T", from = train_start_date, to = train_end_date)
+train_t_prices <- Cl(get("T"))
+train_t_daily_returns <- dailyReturn(train_t_prices)
+colnames(train_t_daily_returns) <- "return"
+train_t_yearly_returns <- period.apply(train_t_daily_returns, endpoints(train_t_daily_returns, on = "years"), 
                                           function(x) prod(1 + x) - 1)
 
 ### Print Statistic Data
-print(summary(train_aapl_daily_returns))
-print(train_aapl_yearly_returns)
-print(summary(train_aapl_yearly_returns))
+print(summary(train_t_daily_returns))
+print(train_t_yearly_returns)
+print(summary(train_t_yearly_returns))
 
 ### Plot Data
-autoplot(train_aapl_prices, colour="blue") + 
-  labs(title = "AAPL Price 2009 - 2018", x="Date", y="Price") + theme_minimal() +
+autoplot(train_t_prices, colour="blue") + 
+  labs(title = "T Price 2009 - 2018", x="Date", y="Price") + theme_minimal() +
   theme(plot.title = element_text(hjust=0.5))
 
-autoplot(train_aapl_daily_returns, colour="blue") + 
-  labs(title = "AAPL Daily Returns 2009 - 2018", x="Date", y="Return") + theme_minimal() +
+autoplot(train_t_daily_returns, colour="blue") + 
+  labs(title = "T Daily Returns 2009 - 2018", x="Date", y="Return") + theme_minimal() +
   theme(plot.title = element_text(hjust=0.5))
 
-autoplot(train_aapl_yearly_returns, colour="blue") + 
-  labs(title = "AAPL Yearly Returns 2009 - 2018", x="Date", y="Return") + theme_minimal() +
+autoplot(train_t_yearly_returns, colour="blue") + 
+  labs(title = "T Yearly Returns 2009 - 2018", x="Date", y="Return") + theme_minimal() +
   theme(plot.title = element_text(hjust=0.5))
 
 ### Additional Analysis
 #### Sharpe Ratio
-train_aapl_daily_sharpe_ratio <- SharpeRatio(train_aapl_daily_returns, Rf = daily_risk_free_rate, FUN = "StdDev")
-train_aapl_yearly_sharpe_ratio <- SharpeRatio(train_aapl_yearly_returns, Rf = yearly_risk_free_rate, FUN = "StdDev")
+train_t_daily_sharpe_ratio <- SharpeRatio(train_t_daily_returns, Rf = daily_risk_free_rate, FUN = "StdDev")
+train_t_yearly_sharpe_ratio <- SharpeRatio(train_t_yearly_returns, Rf = yearly_risk_free_rate, FUN = "StdDev")
 
 #### Treynor Ratio
-train_aapl_daily_treynor_ratio <- TreynorRatio(train_aapl_daily_returns, Rf = daily_risk_free_rate, Rb = train_market_daily_returns)
-train_aapl_yearly_treynor_ratio <- TreynorRatio(train_aapl_yearly_returns, Rf = yearly_risk_free_rate, Rb = train_market_yearly_returns)
+train_t_daily_treynor_ratio <- TreynorRatio(train_t_daily_returns, Rf = daily_risk_free_rate, Rb = train_market_daily_returns)
+train_t_yearly_treynor_ratio <- TreynorRatio(train_t_yearly_returns, Rf = yearly_risk_free_rate, Rb = train_market_yearly_returns)
 
 #### Information Ratio
-train_aapl_daily_information_ratio <- InformationRatio(train_aapl_daily_returns, train_market_daily_returns)
-train_aapl_yearly_information_ratio <- InformationRatio(train_aapl_yearly_returns, train_market_yearly_returns)
+train_t_daily_information_ratio <- InformationRatio(train_t_daily_returns, train_market_daily_returns)
+train_t_yearly_information_ratio <- InformationRatio(train_t_yearly_returns, train_market_yearly_returns)
 
 ### Print the Additional Analysis results
-print("AAPL Daily Data 2009 - 2018")
-cat("Sharpe Ratio:", train_aapl_daily_sharpe_ratio, "\n")
-cat("Treynor Ratio:", train_aapl_daily_treynor_ratio, "\n")
-cat("Information Ratio:", train_aapl_daily_information_ratio, "\n")
+print("T Daily Data 2009 - 2018")
+cat("Sharpe Ratio:", train_t_daily_sharpe_ratio, "\n")
+cat("Treynor Ratio:", train_t_daily_treynor_ratio, "\n")
+cat("Information Ratio:", train_t_daily_information_ratio, "\n")
 
-print("AAPL Yearly Data 2009 - 2018")
-cat("Sharpe Ratio:", train_aapl_yearly_sharpe_ratio, "\n")
-cat("Treynor Ratio:", train_aapl_yearly_treynor_ratio, "\n")
-cat("Information Ratio:", train_aapl_yearly_information_ratio, "\n")
+print("T Yearly Data 2009 - 2018")
+cat("Sharpe Ratio:", train_t_yearly_sharpe_ratio, "\n")
+cat("Treynor Ratio:", train_t_yearly_treynor_ratio, "\n")
+cat("Information Ratio:", train_t_yearly_information_ratio, "\n")
 
 
 ## test
 ### Load Data
-getSymbols("AAPL", from = test_start_date, to = test_end_date)
-test_aapl_prices <- Cl(get("AAPL"))
-test_aapl_daily_returns <- dailyReturn(test_aapl_prices)
-colnames(test_aapl_daily_returns) <- "return"
-test_aapl_yearly_returns <- period.apply(test_aapl_daily_returns, endpoints(test_aapl_daily_returns, on = "years"), 
+getSymbols("T", from = test_start_date, to = test_end_date)
+test_t_prices <- Cl(get("T"))
+test_t_daily_returns <- dailyReturn(test_t_prices)
+colnames(test_t_daily_returns) <- "return"
+test_t_yearly_returns <- period.apply(test_t_daily_returns, endpoints(test_t_daily_returns, on = "years"), 
                                          function(x) prod(1 + x) - 1)
 
 ### Print Statistic Data
-print(summary(test_aapl_daily_returns))
-print(test_aapl_yearly_returns)
+print(summary(test_t_daily_returns))
+print(test_t_yearly_returns)
 
 ### Plot Data
-autoplot(test_aapl_prices, colour="blue") + 
-  labs(title = "AAPL Price 2019", x="Date", y="Price") + theme_minimal() +
+autoplot(test_t_prices, colour="blue") + 
+  labs(title = "T Price 2019", x="Date", y="Price") + theme_minimal() +
   theme(plot.title = element_text(hjust=0.5))
 
-autoplot(test_aapl_daily_returns, colour="blue") + 
-  labs(title = "AAPL Daily Returns 2019", x="Date", y="Return") + theme_minimal() +
+autoplot(test_t_daily_returns, colour="blue") + 
+  labs(title = "T Daily Returns 2019", x="Date", y="Return") + theme_minimal() +
   theme(plot.title = element_text(hjust=0.5))
 
 
 ### Additional Analysis
 #### Sharpe Ratio
-test_aapl_daily_sharpe_ratio <- SharpeRatio(test_aapl_daily_returns, Rf = daily_risk_free_rate, FUN = "StdDev")
-test_aapl_yearly_sharpe_ratio <- SharpeRatio(test_aapl_yearly_returns, Rf = yearly_risk_free_rate, FUN = "StdDev")
+test_t_daily_sharpe_ratio <- SharpeRatio(test_t_daily_returns, Rf = daily_risk_free_rate, FUN = "StdDev")
+test_t_yearly_sharpe_ratio <- SharpeRatio(test_t_yearly_returns, Rf = yearly_risk_free_rate, FUN = "StdDev")
 
 #### Treynor Ratio
-test_aapl_daily_treynor_ratio <- TreynorRatio(test_aapl_daily_returns, Rf = daily_risk_free_rate, Rb = test_market_daily_returns)
-test_aapl_yearly_treynor_ratio <- TreynorRatio(test_aapl_yearly_returns, Rf = yearly_risk_free_rate, Rb = test_market_yearly_returns)
+test_t_daily_treynor_ratio <- TreynorRatio(test_t_daily_returns, Rf = daily_risk_free_rate, Rb = test_market_daily_returns)
+test_t_yearly_treynor_ratio <- TreynorRatio(test_t_yearly_returns, Rf = yearly_risk_free_rate, Rb = test_market_yearly_returns)
 
 #### Information Ratio
-test_aapl_daily_information_ratio <- InformationRatio(test_aapl_daily_returns, test_market_daily_returns)
-test_aapl_yearly_information_ratio <- InformationRatio(test_aapl_yearly_returns, test_market_yearly_returns)
+test_t_daily_information_ratio <- InformationRatio(test_t_daily_returns, test_market_daily_returns)
+test_t_yearly_information_ratio <- InformationRatio(test_t_yearly_returns, test_market_yearly_returns)
 
 ### Print the Additional Analysis results
-print("AAPL Daily Data 2019")
-cat("Sharpe Ratio:", test_aapl_daily_sharpe_ratio, "\n")
-cat("Treynor Ratio:", test_aapl_daily_treynor_ratio, "\n")
-cat("Information Ratio:", test_aapl_daily_information_ratio, "\n")
+print("T Daily Data 2019")
+cat("Sharpe Ratio:", test_t_daily_sharpe_ratio, "\n")
+cat("Treynor Ratio:", test_t_daily_treynor_ratio, "\n")
+cat("Information Ratio:", test_t_daily_information_ratio, "\n")
 
-print("AAPL Yearly Data 2019")
-cat("Sharpe Ratio:", test_aapl_yearly_sharpe_ratio, "\n")
-cat("Treynor Ratio:", test_aapl_yearly_treynor_ratio, "\n")
-cat("Information Ratio:", test_aapl_yearly_information_ratio, "\n")
+print("T Yearly Data 2019")
+cat("Sharpe Ratio:", test_t_yearly_sharpe_ratio, "\n")
+cat("Treynor Ratio:", test_t_yearly_treynor_ratio, "\n")
+cat("Information Ratio:", test_t_yearly_information_ratio, "\n")
 
-# 2. KO
+# 2. KEY
 ## train
 ### Load Data
-getSymbols("KO", from = train_start_date, to = train_end_date)
-train_ko_prices <- Cl(get("KO"))
-train_ko_daily_returns <- dailyReturn(train_ko_prices)
-colnames(train_ko_daily_returns) <- "return"
-train_ko_yearly_returns <- period.apply(train_ko_daily_returns, endpoints(train_ko_daily_returns, on = "years"), 
+getSymbols("KEY", from = train_start_date, to = train_end_date)
+train_key_prices <- Cl(get("KEY"))
+train_key_daily_returns <- dailyReturn(train_key_prices)
+colnames(train_key_daily_returns) <- "return"
+train_key_yearly_returns <- period.apply(train_key_daily_returns, endpoints(train_key_daily_returns, on = "years"), 
                                         function(x) prod(1 + x) - 1)
 
 ### Print Statistic Data
-print(summary(train_ko_daily_returns))
-print(train_ko_yearly_returns)
-print(summary(train_ko_yearly_returns))
+print(summary(train_key_daily_returns))
+print(train_key_yearly_returns)
+print(summary(train_key_yearly_returns))
 
 ### Plot Data
-autoplot(train_ko_prices, colour="blue") + 
-  labs(title = "KO Price 2009 - 2018", x="Date", y="Price") + theme_minimal() +
+autoplot(train_key_prices, colour="blue") + 
+  labs(title = "KEY Price 2009 - 2018", x="Date", y="Price") + theme_minimal() +
   theme(plot.title = element_text(hjust=0.5))
 
-autoplot(train_ko_daily_returns, colour="blue") + 
-  labs(title = "KO Daily Returns 2009 - 2018", x="Date", y="Return") + theme_minimal() +
+autoplot(train_key_daily_returns, colour="blue") + 
+  labs(title = "KEY Daily Returns 2009 - 2018", x="Date", y="Return") + theme_minimal() +
   theme(plot.title = element_text(hjust=0.5))
 
-autoplot(train_ko_yearly_returns, colour="blue") + 
-  labs(title = "KO Yearly Returns 2009 - 2018", x="Date", y="Return") + theme_minimal() +
+autoplot(train_key_yearly_returns, colour="blue") + 
+  labs(title = "KEY Yearly Returns 2009 - 2018", x="Date", y="Return") + theme_minimal() +
   theme(plot.title = element_text(hjust=0.5))
 
 ### Additional Analysis
 #### Sharpe Ratio
-train_ko_daily_sharpe_ratio <- SharpeRatio(train_ko_daily_returns, Rf = daily_risk_free_rate, FUN = "StdDev")
-train_ko_yearly_sharpe_ratio <- SharpeRatio(train_ko_yearly_returns, Rf = yearly_risk_free_rate, FUN = "StdDev")
+train_key_daily_sharpe_ratio <- SharpeRatio(train_key_daily_returns, Rf = daily_risk_free_rate, FUN = "StdDev")
+train_key_yearly_sharpe_ratio <- SharpeRatio(train_key_yearly_returns, Rf = yearly_risk_free_rate, FUN = "StdDev")
 
 #### Treynor Ratio
-train_ko_daily_treynor_ratio <- TreynorRatio(train_ko_daily_returns, Rf = daily_risk_free_rate, Rb = train_market_daily_returns)
-train_ko_yearly_treynor_ratio <- TreynorRatio(train_ko_yearly_returns, Rf = yearly_risk_free_rate, Rb = train_market_yearly_returns)
+train_key_daily_treynor_ratio <- TreynorRatio(train_key_daily_returns, Rf = daily_risk_free_rate, Rb = train_market_daily_returns)
+train_key_yearly_treynor_ratio <- TreynorRatio(train_key_yearly_returns, Rf = yearly_risk_free_rate, Rb = train_market_yearly_returns)
 
 #### Information Ratio
-train_ko_daily_information_ratio <- InformationRatio(train_ko_daily_returns, train_market_daily_returns)
-train_ko_yearly_information_ratio <- InformationRatio(train_ko_yearly_returns, train_market_yearly_returns)
+train_key_daily_information_ratio <- InformationRatio(train_key_daily_returns, train_market_daily_returns)
+train_key_yearly_information_ratio <- InformationRatio(train_key_yearly_returns, train_market_yearly_returns)
 
 ### Print the Additional Analysis results
-print("KO Daily Data 2009 - 2018")
-cat("Sharpe Ratio:", train_ko_daily_sharpe_ratio, "\n")
-cat("Treynor Ratio:", train_ko_daily_treynor_ratio, "\n")
-cat("Information Ratio:", train_ko_daily_information_ratio, "\n")
+print("KEY Daily Data 2009 - 2018")
+cat("Sharpe Ratio:", train_key_daily_sharpe_ratio, "\n")
+cat("Treynor Ratio:", train_key_daily_treynor_ratio, "\n")
+cat("Information Ratio:", train_key_daily_information_ratio, "\n")
 
-print("KO Yearly Data 2009 - 2018")
-cat("Sharpe Ratio:", train_ko_yearly_sharpe_ratio, "\n")
-cat("Treynor Ratio:", train_ko_yearly_treynor_ratio, "\n")
-cat("Information Ratio:", train_ko_yearly_information_ratio, "\n")
+print("KEY Yearly Data 2009 - 2018")
+cat("Sharpe Ratio:", train_key_yearly_sharpe_ratio, "\n")
+cat("Treynor Ratio:", train_key_yearly_treynor_ratio, "\n")
+cat("Information Ratio:", train_key_yearly_information_ratio, "\n")
 
 
 ## test
 ### Load Data
-getSymbols("KO", from = test_start_date, to = test_end_date)
-test_ko_prices <- Cl(get("KO"))
-test_ko_daily_returns <- dailyReturn(test_ko_prices)
-colnames(test_ko_daily_returns) <- "return"
-test_ko_yearly_returns <- period.apply(test_ko_daily_returns, endpoints(test_ko_daily_returns, on = "years"), 
+getSymbols("KEY", from = test_start_date, to = test_end_date)
+test_key_prices <- Cl(get("KEY"))
+test_key_daily_returns <- dailyReturn(test_key_prices)
+colnames(test_key_daily_returns) <- "return"
+test_key_yearly_returns <- period.apply(test_key_daily_returns, endpoints(test_key_daily_returns, on = "years"), 
                                        function(x) prod(1 + x) - 1)
 
 ### Print Statistic Data
-print(summary(test_ko_daily_returns))
-print(test_ko_yearly_returns)
+print(summary(test_key_daily_returns))
+print(test_key_yearly_returns)
 
 ### Plot Data
-autoplot(test_ko_prices, colour="blue") + 
-  labs(title = "KO Price 2019", x="Date", y="Price") + theme_minimal() +
+autoplot(test_key_prices, colour="blue") + 
+  labs(title = "KEY Price 2019", x="Date", y="Price") + theme_minimal() +
   theme(plot.title = element_text(hjust=0.5))
 
-autoplot(test_ko_daily_returns, colour="blue") + 
-  labs(title = "KO Daily Returns 2019", x="Date", y="Return") + theme_minimal() +
+autoplot(test_key_daily_returns, colour="blue") + 
+  labs(title = "KEY Daily Returns 2019", x="Date", y="Return") + theme_minimal() +
   theme(plot.title = element_text(hjust=0.5))
 
 
 ### Additional Analysis
 #### Sharpe Ratio
-test_ko_daily_sharpe_ratio <- SharpeRatio(test_ko_daily_returns, Rf = daily_risk_free_rate, FUN = "StdDev")
-test_ko_yearly_sharpe_ratio <- SharpeRatio(test_ko_yearly_returns, Rf = yearly_risk_free_rate, FUN = "StdDev")
+test_key_daily_sharpe_ratio <- SharpeRatio(test_key_daily_returns, Rf = daily_risk_free_rate, FUN = "StdDev")
+test_key_yearly_sharpe_ratio <- SharpeRatio(test_key_yearly_returns, Rf = yearly_risk_free_rate, FUN = "StdDev")
 
 #### Treynor Ratio
-test_ko_daily_treynor_ratio <- TreynorRatio(test_ko_daily_returns, Rf = daily_risk_free_rate, Rb = test_market_daily_returns)
-test_ko_yearly_treynor_ratio <- TreynorRatio(test_ko_yearly_returns, Rf = yearly_risk_free_rate, Rb = test_market_yearly_returns)
+test_key_daily_treynor_ratio <- TreynorRatio(test_key_daily_returns, Rf = daily_risk_free_rate, Rb = test_market_daily_returns)
+test_key_yearly_treynor_ratio <- TreynorRatio(test_key_yearly_returns, Rf = yearly_risk_free_rate, Rb = test_market_yearly_returns)
 
 #### Information Ratio
-test_ko_daily_information_ratio <- InformationRatio(test_ko_daily_returns, test_market_daily_returns)
-test_ko_yearly_information_ratio <- InformationRatio(test_ko_yearly_returns, test_market_yearly_returns)
+test_key_daily_information_ratio <- InformationRatio(test_key_daily_returns, test_market_daily_returns)
+test_key_yearly_information_ratio <- InformationRatio(test_key_yearly_returns, test_market_yearly_returns)
 
 ### Print the Additional Analysis results
-print("KO Daily Data 2019")
-cat("Sharpe Ratio:", test_ko_daily_sharpe_ratio, "\n")
-cat("Treynor Ratio:", test_ko_daily_treynor_ratio, "\n")
-cat("Information Ratio:", test_ko_daily_information_ratio, "\n")
+print("KEY Daily Data 2019")
+cat("Sharpe Ratio:", test_key_daily_sharpe_ratio, "\n")
+cat("Treynor Ratio:", test_key_daily_treynor_ratio, "\n")
+cat("Information Ratio:", test_key_daily_information_ratio, "\n")
 
-print("KO Yearly Data 2019")
-cat("Sharpe Ratio:", test_ko_yearly_sharpe_ratio, "\n")
-cat("Treynor Ratio:", test_ko_yearly_treynor_ratio, "\n")
-cat("Information Ratio:", test_ko_yearly_information_ratio, "\n")
+print("KEY Yearly Data 2019")
+cat("Sharpe Ratio:", test_key_yearly_sharpe_ratio, "\n")
+cat("Treynor Ratio:", test_key_yearly_treynor_ratio, "\n")
+cat("Information Ratio:", test_key_yearly_information_ratio, "\n")
 
 # 3. CVX
 ## train
@@ -369,105 +369,105 @@ cat("Sharpe Ratio:", test_cvx_yearly_sharpe_ratio, "\n")
 cat("Treynor Ratio:", test_cvx_yearly_treynor_ratio, "\n")
 cat("Information Ratio:", test_cvx_yearly_information_ratio, "\n")
 
-# 4. VRTX
+# 4. TBBK
 ## train
 ### Load Data
-getSymbols("VRTX", from = train_start_date, to = train_end_date)
-train_vrtx_prices <- Cl(get("VRTX"))
-train_vrtx_daily_returns <- dailyReturn(train_vrtx_prices)
-colnames(train_vrtx_daily_returns) <- "return"
-train_vrtx_yearly_returns <- period.apply(train_vrtx_daily_returns, endpoints(train_vrtx_daily_returns, on = "years"), 
+getSymbols("TBBK", from = train_start_date, to = train_end_date)
+train_tbbk_prices <- Cl(get("TBBK"))
+train_tbbk_daily_returns <- dailyReturn(train_tbbk_prices)
+colnames(train_tbbk_daily_returns) <- "return"
+train_tbbk_yearly_returns <- period.apply(train_tbbk_daily_returns, endpoints(train_tbbk_daily_returns, on = "years"), 
                                           function(x) prod(1 + x) - 1)
 
 ### Print Statistic Data
-print(summary(train_vrtx_daily_returns))
-print(train_vrtx_yearly_returns)
-print(summary(train_vrtx_yearly_returns))
+print(summary(train_tbbk_daily_returns))
+print(train_tbbk_yearly_returns)
+print(summary(train_tbbk_yearly_returns))
 
 ### Plot Data
-autoplot(train_vrtx_prices, colour="blue") + 
-  labs(title = "VRTX Price 2009 - 2018", x="Date", y="Price") + theme_minimal() +
+autoplot(train_tbbk_prices, colour="blue") + 
+  labs(title = "TBBK Price 2009 - 2018", x="Date", y="Price") + theme_minimal() +
   theme(plot.title = element_text(hjust=0.5))
 
-autoplot(train_vrtx_daily_returns, colour="blue") + 
-  labs(title = "VRTX Daily Returns 2009 - 2018", x="Date", y="Return") + theme_minimal() +
+autoplot(train_tbbk_daily_returns, colour="blue") + 
+  labs(title = "TBBK Daily Returns 2009 - 2018", x="Date", y="Return") + theme_minimal() +
   theme(plot.title = element_text(hjust=0.5))
 
-autoplot(train_vrtx_yearly_returns, colour="blue") + 
-  labs(title = "VRTX Yearly Returns 2009 - 2018", x="Date", y="Return") + theme_minimal() +
+autoplot(train_tbbk_yearly_returns, colour="blue") + 
+  labs(title = "TBBK Yearly Returns 2009 - 2018", x="Date", y="Return") + theme_minimal() +
   theme(plot.title = element_text(hjust=0.5))
 
 ### Additional Analysis
 #### Sharpe Ratio
-train_vrtx_daily_sharpe_ratio <- SharpeRatio(train_vrtx_daily_returns, Rf = daily_risk_free_rate, FUN = "StdDev")
-train_vrtx_yearly_sharpe_ratio <- SharpeRatio(train_vrtx_yearly_returns, Rf = yearly_risk_free_rate, FUN = "StdDev")
+train_tbbk_daily_sharpe_ratio <- SharpeRatio(train_tbbk_daily_returns, Rf = daily_risk_free_rate, FUN = "StdDev")
+train_tbbk_yearly_sharpe_ratio <- SharpeRatio(train_tbbk_yearly_returns, Rf = yearly_risk_free_rate, FUN = "StdDev")
 
 #### Treynor Ratio
-train_vrtx_daily_treynor_ratio <- TreynorRatio(train_vrtx_daily_returns, Rf = daily_risk_free_rate, Rb = train_market_daily_returns)
-train_vrtx_yearly_treynor_ratio <- TreynorRatio(train_vrtx_yearly_returns, Rf = yearly_risk_free_rate, Rb = train_market_yearly_returns)
+train_tbbk_daily_treynor_ratio <- TreynorRatio(train_tbbk_daily_returns, Rf = daily_risk_free_rate, Rb = train_market_daily_returns)
+train_tbbk_yearly_treynor_ratio <- TreynorRatio(train_tbbk_yearly_returns, Rf = yearly_risk_free_rate, Rb = train_market_yearly_returns)
 
 #### Information Ratio
-train_vrtx_daily_information_ratio <- InformationRatio(train_vrtx_daily_returns, train_market_daily_returns)
-train_vrtx_yearly_information_ratio <- InformationRatio(train_vrtx_yearly_returns, train_market_yearly_returns)
+train_tbbk_daily_information_ratio <- InformationRatio(train_tbbk_daily_returns, train_market_daily_returns)
+train_tbbk_yearly_information_ratio <- InformationRatio(train_tbbk_yearly_returns, train_market_yearly_returns)
 
 ### Print the Additional Analysis results
-print("VRTX Daily Data 2009 - 2018")
-cat("Sharpe Ratio:", train_vrtx_daily_sharpe_ratio, "\n")
-cat("Treynor Ratio:", train_vrtx_daily_treynor_ratio, "\n")
-cat("Information Ratio:", train_vrtx_daily_information_ratio, "\n")
+print("TBBK Daily Data 2009 - 2018")
+cat("Sharpe Ratio:", train_tbbk_daily_sharpe_ratio, "\n")
+cat("Treynor Ratio:", train_tbbk_daily_treynor_ratio, "\n")
+cat("Information Ratio:", train_tbbk_daily_information_ratio, "\n")
 
-print("VRTX Yearly Data 2009 - 2018")
-cat("Sharpe Ratio:", train_vrtx_yearly_sharpe_ratio, "\n")
-cat("Treynor Ratio:", train_vrtx_yearly_treynor_ratio, "\n")
-cat("Information Ratio:", train_vrtx_yearly_information_ratio, "\n")
+print("TBBK Yearly Data 2009 - 2018")
+cat("Sharpe Ratio:", train_tbbk_yearly_sharpe_ratio, "\n")
+cat("Treynor Ratio:", train_tbbk_yearly_treynor_ratio, "\n")
+cat("Information Ratio:", train_tbbk_yearly_information_ratio, "\n")
 
 
 ## test
 ### Load Data
-getSymbols("VRTX", from = test_start_date, to = test_end_date)
-test_vrtx_prices <- Cl(get("VRTX"))
-test_vrtx_daily_returns <- dailyReturn(test_vrtx_prices)
-colnames(test_vrtx_daily_returns) <- "return"
-test_vrtx_yearly_returns <- period.apply(test_vrtx_daily_returns, endpoints(test_vrtx_daily_returns, on = "years"), 
+getSymbols("TBBK", from = test_start_date, to = test_end_date)
+test_tbbk_prices <- Cl(get("TBBK"))
+test_tbbk_daily_returns <- dailyReturn(test_tbbk_prices)
+colnames(test_tbbk_daily_returns) <- "return"
+test_tbbk_yearly_returns <- period.apply(test_tbbk_daily_returns, endpoints(test_tbbk_daily_returns, on = "years"), 
                                          function(x) prod(1 + x) - 1)
 
 ### Print Statistic Data
-print(summary(test_vrtx_daily_returns))
-print(test_vrtx_yearly_returns)
+print(summary(test_tbbk_daily_returns))
+print(test_tbbk_yearly_returns)
 
 ### Plot Data
-autoplot(test_vrtx_prices, colour="blue") + 
-  labs(title = "VRTX Price 2019", x="Date", y="Price") + theme_minimal() +
+autoplot(test_tbbk_prices, colour="blue") + 
+  labs(title = "TBBK Price 2019", x="Date", y="Price") + theme_minimal() +
   theme(plot.title = element_text(hjust=0.5))
 
-autoplot(test_vrtx_daily_returns, colour="blue") + 
-  labs(title = "VRTX Daily Returns 2019", x="Date", y="Return") + theme_minimal() +
+autoplot(test_tbbk_daily_returns, colour="blue") + 
+  labs(title = "TBBK Daily Returns 2019", x="Date", y="Return") + theme_minimal() +
   theme(plot.title = element_text(hjust=0.5))
 
 
 ### Additional Analysis
 #### Sharpe Ratio
-test_vrtx_daily_sharpe_ratio <- SharpeRatio(test_vrtx_daily_returns, Rf = daily_risk_free_rate, FUN = "StdDev")
-test_vrtx_yearly_sharpe_ratio <- SharpeRatio(test_vrtx_yearly_returns, Rf = yearly_risk_free_rate, FUN = "StdDev")
+test_tbbk_daily_sharpe_ratio <- SharpeRatio(test_tbbk_daily_returns, Rf = daily_risk_free_rate, FUN = "StdDev")
+test_tbbk_yearly_sharpe_ratio <- SharpeRatio(test_tbbk_yearly_returns, Rf = yearly_risk_free_rate, FUN = "StdDev")
 
 #### Treynor Ratio
-test_vrtx_daily_treynor_ratio <- TreynorRatio(test_vrtx_daily_returns, Rf = daily_risk_free_rate, Rb = test_market_daily_returns)
-test_vrtx_yearly_treynor_ratio <- TreynorRatio(test_vrtx_yearly_returns, Rf = yearly_risk_free_rate, Rb = test_market_yearly_returns)
+test_tbbk_daily_treynor_ratio <- TreynorRatio(test_tbbk_daily_returns, Rf = daily_risk_free_rate, Rb = test_market_daily_returns)
+test_tbbk_yearly_treynor_ratio <- TreynorRatio(test_tbbk_yearly_returns, Rf = yearly_risk_free_rate, Rb = test_market_yearly_returns)
 
 #### Information Ratio
-test_vrtx_daily_information_ratio <- InformationRatio(test_vrtx_daily_returns, test_market_daily_returns)
-test_vrtx_yearly_information_ratio <- InformationRatio(test_vrtx_yearly_returns, test_market_yearly_returns)
+test_tbbk_daily_information_ratio <- InformationRatio(test_tbbk_daily_returns, test_market_daily_returns)
+test_tbbk_yearly_information_ratio <- InformationRatio(test_tbbk_yearly_returns, test_market_yearly_returns)
 
 ### Print the Additional Analysis results
-print("VRTX Daily Data 2019")
-cat("Sharpe Ratio:", test_vrtx_daily_sharpe_ratio, "\n")
-cat("Treynor Ratio:", test_vrtx_daily_treynor_ratio, "\n")
-cat("Information Ratio:", test_vrtx_daily_information_ratio, "\n")
+print("TBBK Daily Data 2019")
+cat("Sharpe Ratio:", test_tbbk_daily_sharpe_ratio, "\n")
+cat("Treynor Ratio:", test_tbbk_daily_treynor_ratio, "\n")
+cat("Information Ratio:", test_tbbk_daily_information_ratio, "\n")
 
-print("VRTX Yearly Data 2019")
-cat("Sharpe Ratio:", test_vrtx_yearly_sharpe_ratio, "\n")
-cat("Treynor Ratio:", test_vrtx_yearly_treynor_ratio, "\n")
-cat("Information Ratio:", test_vrtx_yearly_information_ratio, "\n")
+print("TBBK Yearly Data 2019")
+cat("Sharpe Ratio:", test_tbbk_yearly_sharpe_ratio, "\n")
+cat("Treynor Ratio:", test_tbbk_yearly_treynor_ratio, "\n")
+cat("Information Ratio:", test_tbbk_yearly_information_ratio, "\n")
 
 # 5. JPM
 ## train
@@ -575,37 +575,37 @@ cat("Information Ratio:", test_jpm_yearly_information_ratio, "\n")
 ## ===============================ANALISIS KESELURUHAN======================================== ##
 # train
 # Merge the data of 5 stocks : price
-train_data_prices <- merge(train_market_prices, train_aapl_prices, train_ko_prices, train_cvx_prices, train_vrtx_prices, train_jpm_prices, all = TRUE)
+train_data_prices <- merge(train_market_prices, train_t_prices, train_key_prices, train_cvx_prices, train_tbbk_prices, train_jpm_prices, all = TRUE)
 print(summary(train_data_prices))
 
 # Merge the data of 5 stocks: daily return
-train_data_daily_returns <- merge(na.omit(train_market_daily_returns), train_aapl_daily_returns, train_ko_daily_returns, train_cvx_daily_returns,
-                            train_vrtx_daily_returns, train_jpm_daily_returns, all=TRUE)
-colnames(train_data_daily_returns) <- c( "return index", "return AAPL", "return KO", "return CVX", "return VRTX", "return JPM")
+train_data_daily_returns <- merge(na.omit(train_market_daily_returns), train_t_daily_returns, train_key_daily_returns, train_cvx_daily_returns,
+                            train_tbbk_daily_returns, train_jpm_daily_returns, all=TRUE)
+colnames(train_data_daily_returns) <- c( "return index", "return T", "return KEY", "return CVX", "return TBBK", "return JPM")
 print(summary(train_data_daily_returns))
 
 # Merge the data of 5 stocks: yearly return
-train_data_yearly_returns <- merge(na.omit(train_market_yearly_returns), train_aapl_yearly_returns, train_ko_yearly_returns, train_cvx_yearly_returns,
-                                   train_vrtx_yearly_returns, train_jpm_yearly_returns, all=TRUE)
-colnames(train_data_yearly_returns) <- c( "return index", "return AAPL", "return KO", "return CVX", "return VRTX", "return JPM")
+train_data_yearly_returns <- merge(na.omit(train_market_yearly_returns), train_t_yearly_returns, train_key_yearly_returns, train_cvx_yearly_returns,
+                                   train_tbbk_yearly_returns, train_jpm_yearly_returns, all=TRUE)
+colnames(train_data_yearly_returns) <- c( "return index", "return T", "return KEY", "return CVX", "return TBBK", "return JPM")
 print(summary(train_data_yearly_returns))
 
 
 # test
 # Merge the data of 5 stocks : price
-test_data_prices <- merge(test_market_prices, test_aapl_prices, test_ko_prices, test_cvx_prices, test_vrtx_prices, test_jpm_prices, all = TRUE)
+test_data_prices <- merge(test_market_prices, test_t_prices, test_key_prices, test_cvx_prices, test_tbbk_prices, test_jpm_prices, all = TRUE)
 print(summary(test_data_prices))
 
 # Merge the data of 5 stocks: daily return
-test_data_daily_returns <- merge(na.omit(test_market_daily_returns), test_aapl_daily_returns, test_ko_daily_returns, test_cvx_daily_returns,
-                                 test_vrtx_daily_returns, test_jpm_daily_returns, all=TRUE)
-colnames(test_data_daily_returns) <- c( "return index", "return AAPL", "return KO", "return CVX", "return VRTX", "return JPM")
+test_data_daily_returns <- merge(na.omit(test_market_daily_returns), test_t_daily_returns, test_key_daily_returns, test_cvx_daily_returns,
+                                 test_tbbk_daily_returns, test_jpm_daily_returns, all=TRUE)
+colnames(test_data_daily_returns) <- c( "return index", "return T", "return KEY", "return CVX", "return TBBK", "return JPM")
 print(summary(test_data_daily_returns))
 
 # Merge the data of 5 stocks: yearly return
-test_data_yearly_returns <- merge(na.omit(test_market_yearly_returns), test_aapl_yearly_returns, test_ko_yearly_returns, test_cvx_yearly_returns,
-                                  test_vrtx_yearly_returns, test_jpm_yearly_returns, all=TRUE)
-colnames(test_data_yearly_returns) <- c( "return index", "return AAPL", "return KO", "return CVX", "return VRTX", "return JPM")
+test_data_yearly_returns <- merge(na.omit(test_market_yearly_returns), test_t_yearly_returns, test_key_yearly_returns, test_cvx_yearly_returns,
+                                  test_tbbk_yearly_returns, test_jpm_yearly_returns, all=TRUE)
+colnames(test_data_yearly_returns) <- c( "return index", "return T", "return KEY", "return CVX", "return TBBK", "return JPM")
 print(summary(test_data_yearly_returns))
 
 
